@@ -34,7 +34,7 @@ module.exports = {
             in: 'body',
             required: true,
             schema: {
-                "name": "Category 1"
+                "name": "Category"
             }
         }
     */

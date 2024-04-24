@@ -19,6 +19,7 @@ module.exports = function (to, subject, message) {
       to: to,
       subject: subject,
       text: message,
+      html: message,
     },
     (error, success) => console.log(success, error)
   );
