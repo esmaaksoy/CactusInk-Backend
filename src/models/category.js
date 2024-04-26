@@ -1,23 +1,24 @@
-"use strict"
+"use strict";
 
-const { mongoose } = require('../configs/dbConnection')
+const { mongoose } = require("../configs/dbConnection");
 
-const CategorySchema = new mongoose.Schema({
-
+const CategorySchema = new mongoose.Schema(
+  {
     name: {
-        type: String,
-        trim: true,
-        required: true,
-        unique: true,
-        set: function (name) {
-            //! girilen categorilerin ilk harfini büyük yaptım.
-            return name.charAt(0).toUpperCase() + name.slice(1);
-          },
-    }
+      type: String,
+      trim: true,
+      required: true,
+      unique: true,
+      set: function (name) {
+        //! I capitalized the first letter of entered categories.
+        return name.charAt(0).toUpperCase() + name.slice(1);
+      },
+    },
+  },
+  {
+    collection: "categories",
+    timestamps: true,
+  }
+);
 
-}, {
-    collection: 'categories',
-    timestamps: true
-})
-
-module.exports = mongoose.model('Category', CategorySchema)
+module.exports = mongoose.model("Category", CategorySchema);
