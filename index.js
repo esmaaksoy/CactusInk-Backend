@@ -11,9 +11,23 @@ require('express-async-errors')
 const { dbConnection } = require('./src/configs/dbConnection')
 dbConnection()
 
-
+//! Accept JSON Data
 app.use(express.json())
 
+
+//! Call static uploadFile:
+app.use('/upload', express.static('./upload'))
+
+
+
+//!Middlawares
+app.use(require('./src/middlewares/authentication'))
+app.use(require('./src/middlewares/logger'))
+app.use(require('./src/middlewares/queryHandler'))
+
+
+
+//! Routes
 app.all('/', (req, res) => {
     res.send({
         error: false,
@@ -27,5 +41,13 @@ app.all('/', (req, res) => {
     })
 })
 
+app.use(require('./src/routes'))
 
+//! Error Handler
+app.use(require('./src/middlewares/errorHandler'))
+
+
+//! RUN SERVER
 app.listen(PORT, () => console.log(`http://${HOST}:${PORT}`))
+
+// require('./src/helpers/sync')()
