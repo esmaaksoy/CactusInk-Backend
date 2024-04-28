@@ -29,6 +29,8 @@ module.exports = async function () {
         "bio": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis quae totam dolores eius eos iure doloremque quasi nihil. Ea reprehenderit possimus cumque quo accusantium quia sit rem delectus quaerat minus ab esse minima repellendus molestiae eligendi nemo dignissimos repellat rerum consequuntur deleniti, quisquam quae. Consectetur ipsa perferendis nesciunt earum quaerat?"
     })
 
+  
+
     /* Finished */
     console.log('* Synchronized.')
 }

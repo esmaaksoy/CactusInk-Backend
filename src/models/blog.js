@@ -9,10 +9,11 @@ const blogSchema = new mongoose.Schema(
       ref: "Category",
       required: [true, "categoryId field must be required"],
     },
+    
     userId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
-      required: [true, "userId field must be required"],
+      // required: [true, "userId field must be required"],
     },
 
     title: {
@@ -30,7 +31,7 @@ const blogSchema = new mongoose.Schema(
     image: {
       type: String,
       trim: true,
-      required: [true, "Image field must be required"],
+      // required: [true, "Image field must be required"],
       validate: {
         validator: function (img) {
           return /(https?:\/\/.*\.(?:png|jpg))/i.test(img);
@@ -43,10 +44,12 @@ const blogSchema = new mongoose.Schema(
       type: Boolean,
       default: true,
     },
+
     likes:[{
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
     }],
+
     comments:[
       {
         type: mongoose.Schema.Types.ObjectId,

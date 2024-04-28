@@ -12,9 +12,9 @@ router.use('/tokens', require('./token'))
 
 router.use('/categories', require('./category'))
 
-router.use('/blogs', require('./category'))
+router.use('/blogs', require('./blog'))
 
-router.use('/comments', require('./category'))
+// router.use('/comments', require('./category'))
 
 
 module.exports = router

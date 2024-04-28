@@ -17,10 +17,7 @@ module.exports = {
                 </ul>
             `
         */
-    const data = await res.getModelList(Blog, {}, [
-      { path: "categoryId", select: "name" },
-      "userId",
-    ]);
+    const data = await res.getModelList(Blog, {}, ["categoryId", "userId"]);
 
     res.status(200).send({
       error: false,
@@ -37,7 +34,11 @@ module.exports = {
             in: 'body',
             required: true,
             schema: {
-                "name": "Blog"
+                  "categoryId": "65343222b67e9681f937f101",
+                  "title": "Blog Title 1",
+                  "content": "Blog Content 1",
+                  "image": "http://imageURL",
+                  "isPublish": true
             }
         }
     */
@@ -98,27 +99,34 @@ module.exports = {
     });
   },
 
-  getLike: async (req, res) => {},
+  // getLike: async (req, res) => {
+
+  // },
 
   postLike: async (req, res) => {
     const blog = await Blog.findOne({ _id: req.params.id });
-    const didUserLike = blog.likes.map((item) => item == req.user.id);
+    const didUserLike = blog.likes.includes(req.user.id);
 
-    if (didUserLike) {
-      blog.likes.push(req.user.id); //buraya userId de pushlayabilirim
+    if (!didUserLike) {
+      blog.likes.push(req.user.id);
+      await blog.save();
+
       res.status(200).send({
         error: false,
-        didUserLike: didUserLike,
+        didUserLike: true,
         countOfLikes: blog.likes.length,
+        likes: blog.likes,
       });
     } else {
       const likeUserId = blog.likes.find((item) => item == req.user.id);
       blog.likes.remove(likeUserId);
+      await blog.save();
 
-      res.status(404).send({
-        error: true,
-        didUserLike: didUserLike,
+      res.status(200).send({
+        error: false,
+        didUserLike: false,
         countOfLikes: blog.likes.length,
+        likes: blog.likes,
       });
     }
   },
