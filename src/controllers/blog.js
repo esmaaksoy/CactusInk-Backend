@@ -98,9 +98,28 @@ module.exports = {
     });
   },
 
+  getLike: async (req, res) => {},
 
+  postLike: async (req, res) => {
+    const blog = await Blog.findOne({ _id: req.params.id });
+    const didUserLike = blog.likes.map((item) => item == req.user.id);
 
-//   const likes = []
-//   const comments = []
-//   countOfVisitors
+    if (didUserLike) {
+      blog.likes.push(req.user.id); //buraya userId de pushlayabilirim
+      res.status(200).send({
+        error: false,
+        didUserLike: didUserLike,
+        countOfLikes: blog.likes.length,
+      });
+    } else {
+      const likeUserId = blog.likes.find((item) => item == req.user.id);
+      blog.likes.remove(likeUserId);
+
+      res.status(404).send({
+        error: true,
+        didUserLike: didUserLike,
+        countOfLikes: blog.likes.length,
+      });
+    }
+  },
 };

@@ -24,11 +24,11 @@ module.exports = {
     //! If not an admin, they can only list their own record. Normally, I handle this in the route with permissions, but I can do it this way here as well.
 
     const customFilters = req.user?.isAdmin ? {} : { _id: req.user._id };
-    const data = await User.getModelList(User, customFilters);
+    const data = await res.getModelList(User, customFilters);
 
     res.status(200).send({
       error: false,
-      details: await User.getModelListDetails(User, customFilters),
+      details: await res.getModelListDetails(User, customFilters),
       data,
     });
   },
