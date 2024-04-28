@@ -15,5 +15,6 @@ router
   .delete(permissions.isLogin, blog.delete);
 
 router.route("/:id/postLike").post(permissions.isLogin, blog.postLike);
+router.route("/:id/getLike").get(permissions.isLogin, blog.getLike);
 
 module.exports = router;

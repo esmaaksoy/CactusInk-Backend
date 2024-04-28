@@ -9,12 +9,13 @@ const CommentSchema = new mongoose.Schema(
       ref: "Blog",
       required: [true, "blogId field must be required"],
     },
-    
+
     comment: {
       type: String,
       trim: true,
       required: true,
     },
+    
   },
   {
     collection: "categories",

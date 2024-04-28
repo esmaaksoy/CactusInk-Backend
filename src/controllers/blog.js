@@ -99,9 +99,16 @@ module.exports = {
     });
   },
 
-  // getLike: async (req, res) => {
+  getLike: async (req, res) => {
+    const blog = await Blog.findOne({ _id: req.params.id });
 
-  // },
+    res.status(200).send({
+      error: false,
+      didUserLike: false,
+      countOfLikes: blog.likes.length,
+      likes: blog.likes,
+    });
+  },
 
   postLike: async (req, res) => {
     const blog = await Blog.findOne({ _id: req.params.id });
