@@ -17,7 +17,11 @@ module.exports = {
                 </ul>
             `
         */
-    const data = await res.getModelList(Blog, {}, ["categoryId", "userId"]);
+    const data = await res.getModelList(Blog, {}, [
+      "categoryId",
+      "userId",
+      { path: "comments", populate: "userId" },
+    ]);
 
     res.status(200).send({
       error: false,
@@ -43,11 +47,8 @@ module.exports = {
         }
     */
 
-  const userId = req.user.id;
-
-
-  req.body.userId = userId;
-
+    const userId = req.user.id;
+    req.body.userId = userId;
 
     const data = await Blog.create(req.body);
 
@@ -62,7 +63,12 @@ module.exports = {
             #swagger.tags = ["Blogs"]
             #swagger.summary = "Get Single Blog"
         */
-    const data = await Blog.findOne({ _id: req.params.id });
+
+    const data = await Blog.findOneAndUpdate(
+      { _id: req.params.id },
+      { $inc: { countOfVisitors: 1 } },
+      { new: true }
+    ).populate([{ path: "comments", populate: "userId" }, "userId"]);
 
     res.status(200).send({
       error: false,

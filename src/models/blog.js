@@ -9,10 +9,10 @@ const blogSchema = new mongoose.Schema(
       ref: "Category",
       required: [true, "categoryId field must be required"],
     },
-    
+
     userId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User"
+      ref: "User",
     },
 
     title: {
@@ -30,7 +30,7 @@ const blogSchema = new mongoose.Schema(
     image: {
       type: String,
       trim: true,
-      required: [true, "Image field must be required"],
+      // required: [true, "Image field must be required"],
       validate: {
         validator: function (img) {
           return /(https?:\/\/.*\.(?:png|jpg))/i.test(img);
@@ -39,22 +39,29 @@ const blogSchema = new mongoose.Schema(
       },
     },
 
-    published: {
+    isPublish: {
       type: Boolean,
       default: true,
     },
 
-    likes:[{
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-    }],
-
-    comments:[
+    likes: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
-      }
-    ]
+      },
+    ],
+
+    comments: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Comment",
+      },
+    ],
+
+    countOfVisitors: {
+      type: Number,
+      default: 0
+    },
 
   },
   {
@@ -63,4 +70,4 @@ const blogSchema = new mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model('Blog', blogSchema)
+module.exports = mongoose.model("Blog", blogSchema);

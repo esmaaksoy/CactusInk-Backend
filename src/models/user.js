@@ -54,10 +54,12 @@ const UserSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+
     isActive: {
       type: Boolean,
-      default: false,
+      default: true,
     },
+
     image: 
     {
       type: String,
@@ -70,11 +72,13 @@ const UserSchema = new mongoose.Schema(
           message: props => `${props.value} is not a valid image url!`
         },
     },
+
     city: {
         type: String,
         trim: true,
         required: [true, "city field must be required"],
     },
+    
     bio: {
         type: String,
         trim: true,

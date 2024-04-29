@@ -18,7 +18,7 @@ module.exports = {
                 </ul>
             `
         */
-    const data = await res.getModelList(Comment);
+    const data = await res.getModelList(Comment, {}, "userId");
 
     res.status(200).send({
       error: false,
@@ -40,27 +40,22 @@ module.exports = {
             }
         }
     */
-    const data = await Comment.create(req.body);
-    console.log(data)
 
+        const userId = req.user.id;
+        req.body.userId = userId;
+
+    const data = await Comment.create(req.body);
+  
     const blog = await Blog.findOne({ _id: data.blogId });
 
     blog.comments.push(data._id);
 
     await blog.save();
 
-    // res.status(200).send({
-    //   error: false,
-    //   data,
-    //   countOfComments: blog.comments.length,
-    //   comments: blog.comments,
-    // });
 
     res.status(201).send({
       error: false,
       data,
-      // countOfComments: blog.comments.length,
-      // comments: blog.comments,
     });
   },
 
@@ -69,7 +64,7 @@ module.exports = {
             #swagger.tags = ["Comments"]
             #swagger.summary = "Get Single Comment"
         */
-    const data = await Comment.findOne({ _id: req.params.id });
+    const data = await Comment.findOne({ _id: req.params.id }).populate([{path:"userId", select: "firstName" }]);
 
     res.status(200).send({
       error: false,
