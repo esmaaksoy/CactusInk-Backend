@@ -1,6 +1,7 @@
 "use strict";
 
 const Comment = require("../models/comment");
+const Blog = require("../models/blog");
 
 module.exports = {
   list: async (req, res) => {
@@ -40,10 +41,26 @@ module.exports = {
         }
     */
     const data = await Comment.create(req.body);
+    console.log(data)
+
+    const blog = await Blog.findOne({ _id: data.blogId });
+
+    blog.comments.push(data._id);
+
+    await blog.save();
+
+    // res.status(200).send({
+    //   error: false,
+    //   data,
+    //   countOfComments: blog.comments.length,
+    //   comments: blog.comments,
+    // });
 
     res.status(201).send({
       error: false,
       data,
+      // countOfComments: blog.comments.length,
+      // comments: blog.comments,
     });
   },
 
@@ -88,7 +105,7 @@ module.exports = {
             #swagger.tags = ["Comments"]
             #swagger.summary = "Delete Comment"
         */
-    const data = await Comment.deleteOne({ _id: req.params.is });
+    const data = await Comment.deleteOne({ _id: req.params.id });
 
     res.status(data.deletedCount ? 204 : 404).send({
       error: !data.deletedCount,

@@ -10,15 +10,19 @@ const CommentSchema = new mongoose.Schema(
       required: [true, "blogId field must be required"],
     },
 
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
+
     comment: {
       type: String,
       trim: true,
       required: true,
     },
-    
   },
   {
-    collection: "categories",
+    collection: "comments",
     timestamps: true,
   }
 );

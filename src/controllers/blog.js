@@ -42,6 +42,13 @@ module.exports = {
             }
         }
     */
+
+  const userId = req.user.id;
+
+
+  req.body.userId = userId;
+
+
     const data = await Blog.create(req.body);
 
     res.status(201).send({
@@ -91,7 +98,7 @@ module.exports = {
             #swagger.tags = ["Blogs"]
             #swagger.summary = "Delete Blog"
         */
-    const data = await Blog.deleteOne({ _id: req.params.is });
+    const data = await Blog.deleteOne({ _id: req.params.id });
 
     res.status(data.deletedCount ? 204 : 404).send({
       error: !data.deletedCount,

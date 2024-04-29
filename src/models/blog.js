@@ -12,8 +12,7 @@ const blogSchema = new mongoose.Schema(
     
     userId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-      // required: [true, "userId field must be required"],
+      ref: "User"
     },
 
     title: {
@@ -31,7 +30,7 @@ const blogSchema = new mongoose.Schema(
     image: {
       type: String,
       trim: true,
-      // required: [true, "Image field must be required"],
+      required: [true, "Image field must be required"],
       validate: {
         validator: function (img) {
           return /(https?:\/\/.*\.(?:png|jpg))/i.test(img);

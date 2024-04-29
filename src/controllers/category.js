@@ -87,7 +87,7 @@ module.exports = {
             #swagger.tags = ["Categories"]
             #swagger.summary = "Delete Category"
         */
-    const data = await Category.deleteOne({ _id: req.params.is });
+    const data = await Category.deleteOne({ _id: req.params.id });
 
     res.status(data.deletedCount ? 204 : 404).send({
       error: !data.deletedCount,
