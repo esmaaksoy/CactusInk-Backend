@@ -1,11 +1,9 @@
 "use strict"
-/* -------------------------------------------------------
-	EXPRESS - Personnel API
-------------------------------------------------------- */
+
 require('dotenv').config()
 const HOST = process.env?.HOST || '127.0.0.1'
 const PORT = process.env?.PORT || 8000
-/* ------------------------------------------------------- */
+
 const swaggerAutogen = require('swagger-autogen')()
 const packageJson = require('./package.json')
 

@@ -16,19 +16,24 @@ module.exports = {
                     <li>URL/?<b>limit=10&page=1</b></li>
                 </ul>
             `
+            #swagger.parameters['author'] = {
+            in: 'query',
+            description: 'Filter blogs by author name',
+            required: false,
+            type: 'string'
+            }
         */
 
     if (req.query.author) {
-
       const data = await Blog.find({ userId: req.query.author });
-
 
       res.status(200).send({
         error: false,
-        details: await res.getModelListDetails(Blog,{ userId: req.query.author }),
+        details: await res.getModelListDetails(Blog, {
+          userId: req.query.author,
+        }),
         data,
       });
-
     } else {
       const data = await res.getModelList(Blog, { isPublish: true }, [
         "categoryId",
@@ -36,14 +41,12 @@ module.exports = {
         { path: "comments", populate: "userId" },
       ]);
 
-    res.status(200).send({
-      error: false,
-      details: await res.getModelListDetails(Blog, { isPublish: true }),
-      data,
-    });
+      res.status(200).send({
+        error: false,
+        details: await res.getModelListDetails(Blog, { isPublish: true }),
+        data,
+      });
     }
-
-
   },
 
   create: async (req, res) => {
@@ -86,10 +89,13 @@ module.exports = {
       { new: true }
     ).populate([{ path: "comments", populate: "userId" }, "userId"]);
 
+
+
     res.status(200).send({
       error: false,
       data,
     });
+
   },
 
   update: async (req, res) => {
@@ -129,6 +135,10 @@ module.exports = {
   },
 
   getLike: async (req, res) => {
+       /*
+            #swagger.tags = ["Blogs"]
+            #swagger.summary = "Get Like Info"
+        */
     const blog = await Blog.findOne({ _id: req.params.id });
 
     res.status(200).send({
@@ -140,6 +150,11 @@ module.exports = {
   },
 
   postLike: async (req, res) => {
+     /*
+            #swagger.tags = ["Blogs"]
+            #swagger.summary = "Add/Remove Like"
+        */
+
     const blog = await Blog.findOne({ _id: req.params.id });
     const didUserLike = blog.likes.includes(req.user.id);
 

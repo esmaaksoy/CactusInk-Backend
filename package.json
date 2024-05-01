@@ -1,4 +1,17 @@
 {
+  "title": "CactusInk Blog",
+  "name": "cactusink",
+  "description": "CactusInk Blog",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon",
+    "debug": "DEBUG=* nodemon"
+  },
+  "keywords": [],
+  "author": "Esma Aksoy",
+  "license": "ISC Licence",
+
+
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
@@ -10,7 +23,7 @@
     "multer": "^1.4.5-lts.1",
     "nodemailer": "^6.9.7",
     "redoc-express": "^2.1.0",
-    "swagger-autogen": "^2.23.6",
+    "swagger-autogen": "^2.23.7",
     "swagger-ui-express": "^5.0.0"
   }
 }
