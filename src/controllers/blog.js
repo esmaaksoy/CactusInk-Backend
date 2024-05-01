@@ -17,17 +17,33 @@ module.exports = {
                 </ul>
             `
         */
-    const data = await res.getModelList(Blog, {}, [
-      "categoryId",
-      "userId",
-      { path: "comments", populate: "userId" },
-    ]);
+
+    if (req.query.author) {
+
+      const data = await Blog.find({ userId: req.query.author });
+
+
+      res.status(200).send({
+        error: false,
+        details: await res.getModelListDetails(Blog,{ userId: req.query.author }),
+        data,
+      });
+
+    } else {
+      const data = await res.getModelList(Blog, { isPublish: true }, [
+        "categoryId",
+        "userId",
+        { path: "comments", populate: "userId" },
+      ]);
 
     res.status(200).send({
       error: false,
-      details: await res.getModelListDetails(Blog),
+      details: await res.getModelListDetails(Blog, { isPublish: true }),
       data,
     });
+    }
+
+
   },
 
   create: async (req, res) => {
