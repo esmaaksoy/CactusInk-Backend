@@ -89,8 +89,6 @@ module.exports = {
       { new: true }
     ).populate([{ path: "comments", populate: "userId" }, "userId"]);
 
-
-
     res.status(200).send({
       error: false,
       data,

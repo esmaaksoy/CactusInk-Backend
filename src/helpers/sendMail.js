@@ -15,7 +15,6 @@ module.exports = function (to, subject, message) {
 
   transporter.sendMail(
     {
-      from: req.body.email,
       to: to,
       subject: subject,
       text: message,

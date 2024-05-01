@@ -56,14 +56,14 @@ module.exports = {
     req.body.isAdmin = false;
     const data = await User.create(req.body);
 
-    // sendMail(
-    //   data.email,
-    //   "Welcome",
-    //   `
-    //         <h1>Welcome ${data.username}</h1>
-    //         <p>Welcome to our CactusInk blog page ${data.username}.As you share knowledge, it becomes beautiful. We wish you enjoyable reading and writing.</p>
-    //     `
-    // );
+    sendMail(
+      data.email,
+      "Welcome",
+      `
+            <h1>Welcome ${data.username}</h1>
+            <p>Welcome to our CactusInk blog page ${data.username}.As you share knowledge, it becomes beautiful. We wish you enjoyable reading and writing.</p>
+        `
+    );
 
     //! Auto Login
     const tokenData = await Token.create({
