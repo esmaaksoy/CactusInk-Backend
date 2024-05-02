@@ -3,7 +3,7 @@ const express = require('express')
 const app = express()
 
 const cors = require("cors");
-app.use(cors({ origin: "http://localhost:3000" }));
+app.use(cors({ origin: "https://cactusink-esma.netlify.app" }));
 
 require('dotenv').config()
 const HOST = process.env?.HOST || '127.0.0.1'
