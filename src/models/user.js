@@ -82,8 +82,7 @@ const UserSchema = new mongoose.Schema(
     bio: {
         type: String,
         trim: true,
-        required: [true, "biography field must be required"],
-        minlength: 30
+        required: [true, "biography field must be required"]
     }
   },
   { collection: "users", timestamps: true }
