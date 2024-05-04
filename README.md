@@ -35,6 +35,7 @@ CactusInk Blog Page (folder)
       ┃ ┣ authentication.js
       ┃ ┣ errorHandler.js
       ┃ ┣ logger.js
+      ┃ ┣ ipMiddleware.js
       ┃ ┣ permissions.js
       ┃ ┣ upload.js
       ┃ ┗ queryHandler.js
