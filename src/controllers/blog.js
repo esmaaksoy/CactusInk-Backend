@@ -83,9 +83,11 @@ module.exports = {
             #swagger.summary = "Get Single Blog"
         */
 
+    const IP = req.ip;
     const data = await Blog.findOneAndUpdate(
       { _id: req.params.id },
-      { $inc: { countOfVisitors: 1 } },
+      // { $inc: { countOfVisitors: 1 } }, //! not unique
+      { $addToSet: { visitors: IP } }, //!unique count
       { new: true }
     ).populate([{ path: "comments", populate: "userId" }, "userId"]);
 
@@ -133,7 +135,7 @@ module.exports = {
   },
 
   getLike: async (req, res) => {
-       /*
+    /*
             #swagger.tags = ["Blogs"]
             #swagger.summary = "Get Like Info"
         */
@@ -148,7 +150,7 @@ module.exports = {
   },
 
   postLike: async (req, res) => {
-     /*
+    /*
             #swagger.tags = ["Blogs"]
             #swagger.summary = "Add/Remove Like"
         */

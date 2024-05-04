@@ -1,5 +1,6 @@
 "use strict";
 
+const { set } = require("mongoose");
 const { mongoose } = require("../configs/dbConnection");
 
 const blogSchema = new mongoose.Schema(
@@ -57,15 +58,18 @@ const blogSchema = new mongoose.Schema(
         ref: "Comment",
       },
     ],
-
+    visitors: [],
     countOfVisitors: {
       type: Number,
-      default: 0
+      get: function () {
+        return this.visitors.length;
+      },
     },
   },
   {
     collection: "blogs",
     timestamps: true,
+    toJSON: { getters: true },
   }
 );
 
