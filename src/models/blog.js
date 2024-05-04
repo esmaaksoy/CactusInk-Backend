@@ -58,7 +58,9 @@ const blogSchema = new mongoose.Schema(
         ref: "Comment",
       },
     ],
+
     visitors: [],
+    
     countOfVisitors: {
       type: Number,
       get: function () {

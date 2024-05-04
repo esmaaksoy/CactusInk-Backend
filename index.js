@@ -5,6 +5,7 @@ const app = express()
 const cors = require("cors");
 app.use(cors({ origin: "https://cactusink-esma.netlify.app" }));
 
+
 require('dotenv').config()
 const HOST = process.env?.HOST || '127.0.0.1'
 const PORT = process.env?.PORT || 8000
@@ -27,7 +28,7 @@ app.use('/upload', express.static('./upload'))
 app.use(require('./src/middlewares/authentication'))
 // app.use(require('./src/middlewares/logger'))
 app.use(require('./src/middlewares/queryHandler'))
-
+app.use(require("./src/middlewares/ipMiddleware"));
 
 
 //! Routes

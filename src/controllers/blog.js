@@ -1,6 +1,7 @@
 "use strict";
 
 const Blog = require("../models/blog");
+const ipMiddleware = require("../middlewares/ipMiddleware");
 
 module.exports = {
   list: async (req, res) => {
@@ -83,11 +84,12 @@ module.exports = {
             #swagger.summary = "Get Single Blog"
         */
 
-    const IP = req.ip;
+    const ip = req.clientIp;
+
     const data = await Blog.findOneAndUpdate(
       { _id: req.params.id },
       // { $inc: { countOfVisitors: 1 } }, //! not unique
-      { $addToSet: { visitors: IP } }, //!unique count
+      { $addToSet: { visitors: ip } }, //!unique count
       { new: true }
     ).populate([{ path: "comments", populate: "userId" }, "userId"]);
 
@@ -95,7 +97,6 @@ module.exports = {
       error: false,
       data,
     });
-
   },
 
   update: async (req, res) => {
